@@ -1,7 +1,11 @@
 //Developer Manager project with inheritance.
 import java.util.Scanner;
-
-class Emp
+interface Company
+{
+	public abstract void access();
+	static String companyname="Blue Yonder";
+}
+abstract class Emp
 {
     public int id;
     public String name;
@@ -27,9 +31,12 @@ class Emp
         System.out.println("Age : " + age);
         System.out.println("Salary : " + salary);
         System.out.println("Designation : " + designation);
+	System.out.println("Company : " + Company.companyname);
     }
+    abstract void raiseSalary();
+    abstract void PF();
 }
-class Developer extends Emp{
+final class Developer extends Emp implements Company{
     boolean salaryincreased=false;
     Developer()
 {
@@ -44,10 +51,18 @@ class Developer extends Emp{
 	salaryincreased=true;
 }
 	}
+	void PF()
+	{
+	System.out.println(salary/10);
+	}
+	public void access()
+	{
+		System.out.println("A block");
+	}
 
 }
 
-class Clerk extends Emp{
+final class Clerk extends Emp implements Company{
      boolean salaryincreased=false;
     Clerk(){
      salary = 250000;
@@ -61,8 +76,17 @@ class Clerk extends Emp{
 	salaryincreased=true;
 }
 	}
+	void PF()
+	{
+	System.out.println(salary/10);
+	}
+	
+	public void access()
+	{
+		System.out.println("C block");
+	}
 }
-class Manager extends Emp {
+final class Manager extends Emp implements Company{
      boolean salaryincreased=false;
      Manager(){
      salary = 90000;
@@ -77,9 +101,17 @@ class Manager extends Emp {
 	salaryincreased=true;
 }
 	}
-
+	void PF()
+	{
+	System.out.println(salary/10);
+	}
+	
+	public void access()
+	{
+		System.out.println("A+B block");
+	}
 }
-class Tester extends Emp{
+final class Tester extends Emp implements Company{
 boolean salaryincreased=false;
      Tester(){
      salary = 40000;
@@ -91,6 +123,15 @@ boolean salaryincreased=false;
 	salary+=(salary/10);
         salaryincreased=true;
 }
+	}
+	void PF()
+	{
+	System.out.println(salary/10);
+	}
+	
+	public void access()
+	{
+		System.out.println("D block");
 	}
 }
 
@@ -109,7 +150,8 @@ public class Demo5 {
             System.out.println("1) Create");
             System.out.println("2) Display");
 	    System.out.println("3) UpdateSalary");
-            System.out.println("4) Exit");
+	    System.out.println("4) Show PF");
+            System.out.println("5) Exit");
 
             System.out.println("Enter your 1st choice.....");
             ch1 = sc.nextInt();
@@ -262,7 +304,47 @@ public class Demo5 {
                     	continue;
                 	}
 		}
-            if(ch1 == 4) {
+			if(ch1 == 4)
+		{
+ 			int ch2=0;
+			System.out.println("1) Developer");
+                	System.out.println("2) Clerk");
+                	System.out.println("3) Tester");
+                	System.out.println("4) Manager");
+                	System.out.println("Exit to main menu");
+
+                	System.out.print("Enter your 2nd choice : ");
+                	ch2 = sc.nextInt();
+
+			if(ch2 == 1){ //developer
+                    if(d.id != 0)
+                        d.PF();
+                    else
+                        System.out.println("Developer Not yet registered");
+                	}
+                	if(ch2 == 2){ //Clerk
+                    		if(c.id != 0)
+                       		 c.PF();
+                    	else
+                        System.out.println("Clerk Not yet registered");
+                	}
+                	if(ch2 == 3){ //Tester
+                    	if(t.id != 0)
+                        t.PF();
+                    	else
+                        System.out.println("Tester Not yet registered");
+                	}
+                	if(ch2 == 4){ //Manager
+                    	if(m.id != 0)
+                        m.PF();
+                    	else
+                        System.out.println("Manager Not yet registered");
+                	}
+                	if(ch2 == 5) { //exit to main menu
+                    	continue;
+                	}
+		}
+            if(ch1 == 5) {
                 System.exit(0);
             }
         }while(ch1 != 5);
